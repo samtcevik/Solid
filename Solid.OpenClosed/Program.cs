@@ -53,3 +53,52 @@ public class Calculator2 {
     }
 }
 
+//Now We are creating the system with a new design to obey The OCP by using Polymorphism
+
+public enum WeekDay{
+    FullTime = 22,
+    PartTime = 14,
+    Supporter = 4
+
+}
+public interface IEmployee {
+    double CalculateSalary();
+}
+
+public class FullTimeNew:IEmployee {
+    public double CalculateSalary() {
+        return (int)WeekDay.FullTime * 100.00;
+    }
+}
+
+public class PartTimeNew:IEmployee {
+    public double CalculateSalary() {
+        return (int)WeekDay.PartTime * 100.00;
+    }
+}
+
+public class SupporterNew:IEmployee {
+    public double CalculateSalary() {
+        return (int)WeekDay.Supporter * 100.00;
+    }
+}
+
+public class CalculatorNew{
+    IEmployee _employee;
+    public CalculatorNew(IEmployee employee) {
+        _employee = employee;
+    }
+
+    public double CalculateSalary() {
+        return _employee.CalculateSalary();
+    }
+}
+
+
+public class BaseUI {
+    public void ShowSalary() {
+        CalculatorNew calculatorFullTime = new CalculatorNew(new FullTimeNew());
+        CalculatorNew calculatorPartTime = new CalculatorNew(new PartTimeNew());
+        CalculatorNew calculatorSupporter = new CalculatorNew(new SupporterNew());
+    }
+}
